@@ -1,7 +1,16 @@
 plugins {
     kotlin("jvm") version "1.7.21"
     kotlin("plugin.allopen") version "1.7.21"
+    kotlin("plugin.noarg") version "1.7.21"
     id("io.quarkus")
+}
+
+noArg {
+    annotation("javax.persistence.Entity")
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
 }
 
 repositories {
@@ -19,8 +28,14 @@ dependencies {
     // Quarkus
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-kotlin")
+    implementation("io.quarkus:quarkus-config-yaml")
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+
+    // Database - Hibernate Reactive
+    implementation("io.quarkus:quarkus-hibernate-reactive")
+    implementation("io.quarkus:quarkus-reactive-mysql-client")
+    implementation("io.quarkus:quarkus-hibernate-reactive-panache")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -28,6 +43,7 @@ dependencies {
     // Test
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
+    testImplementation("io.quarkus:quarkus-junit5-mockito")
 }
 
 group = "com.bifos"
